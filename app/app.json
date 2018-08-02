@@ -1,0 +1,17 @@
+{
+    "TITLE": "SILK Desktop",
+    "DEBUG": false,
+    "APPENV":"DEV",
+    "SETTINGS": {
+        "PROD": {
+            "CONFIG": {
+                "NOTIFICATION_INTERVAL": 60000
+            }
+        },
+        "DEV": {
+            "CONFIG": {
+                "NOTIFICATION_INTERVAL": 60000
+            }
+        }
+    }
+}

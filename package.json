@@ -1,0 +1,95 @@
+{
+  "name": "com.silk.appserver",
+  "version": "1.0.0",
+  "description": "AppServer is a Desktop App Server for HTML, MD files for Developers and Enthusiasts.",
+  "homepage": "https://github.com/bismay4u/AppServer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --enable-logging",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist:linux": "build --x64 --ia32 --linux deb",
+    "dist:win64": "build --x64  --win",
+    "dist:win32": "build --ia32  --win",
+    "dist:mac": "build --x64 --ia32 --mac",
+    "dist:all": "build -mwl --x64 --ia32",
+    "dist": "npm run dist:mac && npm run dist:linux && npm run dist:win"
+  },
+  "packageIgnore": [
+    "LICENSE.md",
+    "README.md",
+    ".DS_Store",
+    ".travis.yml",
+    "appveyor.yml",
+    "test",
+    "dist",
+    "build/Screenshot.png"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bismay4u/AppServer.git"
+  },
+  "keywords": [
+    "web",
+    "server",
+    "app",
+    "html",
+    "static"
+  ],
+  "author": {
+    "name": "Bismay",
+    "email": "bismay4u@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bismay4u/AppServer/issues"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "electron-localshortcut": "^2.0.2",
+    "electron-save-file": "^1.0.2",
+    "font-awesome": "^4.6.3",
+    "fs-extra": "^4.0.2",
+    "handlebars": "^4.0.8",
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
+    "jquery.easing": "^1.4.1",
+    "md5": "^2.2.1",
+    "moment": "^2.22.2",
+    "node-localstorage": "*",
+    "node-thumbnail": "^0.14.0",
+    "require-reload": "*",
+    "s3": "^4.4.0",
+    "socket.io": "^2.1.1",
+    "vue": "^2.5.16",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "electron": "^2.0.6",
+    "electron-builder": "^20.26.1",
+    "electron-packager": "^9.1.0"
+  },
+  "build": {
+    "appId": "com.silk.appserver",
+    "productName": "AppServer",
+    "artifactName": "com.silk.appserver-1.0",
+    "asar": true,
+    "compression": "normal",
+    "copyright": "Copyright @ 2017 Bismay",
+    "mac": {
+      "category": "public.app-category.development",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": "nsis"
+    },
+    "linux": {
+      "category": "Graphics",
+      "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false
+    }
+  }
+}
