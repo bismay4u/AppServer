@@ -2,6 +2,7 @@
     "TITLE": "SILK Desktop",
     "DEBUG": false,
     "APPENV":"DEV",
+    "VERSION":"1.0",
     "SETTINGS": {
         "PROD": {
             "CONFIG": {

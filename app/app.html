@@ -1,26 +1,93 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div id='alertMsg' class="row fade">
+            <div id='alertMsg' class="row hidden fade">
                 <div class="col-lg-12">
                     <div class="alert alert-info alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <div class='msgbody'>
-                            <i class="fa fa-info-circle"></i>  
+                            <i class="fa fa-info-circle"></i>
                             <strong>Welcome</strong> To the home of wonderfull
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id='mainBody' class="container-fluid"b>
-            <h1 align=center>Welcome to Blank App</h1>
+            <div>
+                <div class='containerSidebar'>
+                    <ul id='dirHistory' class="list-group">
+                    </ul>
+                </div>
+                <div class='containerBody'>
+                    <div id='mainBody'>
+                        <div id='serverForm' class="row serverForm">
+                            <div class="col-md-12 clearfix">
+                                <div class="col-xs-2 col-lg-2 col-sm-2 col-md-2">
+                                    <label for="folderPath">
+                                        <strong>Base Folder : </strong>
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 col-lg-6 col-sm-6 col-md-6">
+                                    <div class="input-group">
+                                        <input id='folderPath' type="text" class="form-control" placeholder="Workspace Folder" readonly>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" onclick="selectFolder(this)">Folder !</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1 col-lg-1 col-sm-2 col-md-2">
+                                    <label for="serverPort">
+                                        <strong>Port : </strong>
+                                    </label>
+                                </div>
+                                <div class="col-xs-2 col-lg-2 col-sm-2 col-md-2">
+                                    <input id='serverPort' type="number" class="form-control" placeholder="99999">
+                                </div>
+                            </div>
+                            <div class="col-md-12 clearfix" style="padding-top: 9px;">
+                                <div class="col-xs-2 col-lg-2 col-sm-2 col-md-2">
+                                    <label class='onserveron'>Server @ : </label>
+                                </div>
+                                <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5">
+                                    <a id='serverURL' href='http://localhost:9000/' class='alink external onserveron' style="line-height: 32px;">http://localhost:9000/</a>
+                                </div>
+                                <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5 checkboxes">
+                                    <label title='Monitor Base Folder for Changes' data-toggle="tooltip" data-placement="bottom">
+                                        <input type="checkbox" id='monitor' value='true' /> Monitor
+                                    </label>
+                                    <label title='Auto Index files if index.html is absent' data-toggle="tooltip" data-placement="bottom">
+                                        <input type="checkbox" id='autoindex' value='true' /> AutoIndex
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='requestList'>
+                        <div class='logs-box'>
+                            <ul id="logHistory">
+                                <h1 align=center>Choose a folder to start the server</h1>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id='footer' class='footer onserveron'>
+                        <div class='input-group pull-left'>
+                            <input type='search' id='searchLog' placeholder='Search Log' onchange='searchLog()' />
+                            <span class="intput-group-addon" onclick="$('#searchLog').val('');searchLog();">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                        </div>
+                        <a href='#' onclick='clearLog()' class='action pull-right'>clear log</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
+<div class="drop-helper">
+    <strong>Drop a folder to change Base Folder for Server</strong>
+</div>
 <script>
-//showLoader("#mainBody","Loading Application ...");
-
-
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    initWindow();
+    renderHistory();
 </script>

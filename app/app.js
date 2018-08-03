@@ -1,5 +1,7 @@
 const requireLive = require('require-reload')(require);
 const remote = require('electron').remote;
+const shell = require( "electron" ).shell;
+const dialog = remote.dialog;
 const os = require('os');
 const fsUtils = require('fs');
 const fsExtra = require('fs-extra');
@@ -7,15 +9,25 @@ const fsPath = require('path');
 
 const winston = require('winston');
 
+const currentWindow = remote.getCurrentWindow();
+
 //const saveFile = require('electron').remote.require('electron-save-file');
 //const dialogUtils = require('electron').remote.dialog 
 //const electronShortcut = require('electron').remote.require('electron-localshortcut');
 
 //Loading other libs
-const handleBars = require('handlebars');
 const hashMD5 = require('md5');
 const moment = require("moment");
-const vue = require("vue");
+const lodash = require("lodash");
+// const vue = require("vue");
+// const handleBars = require('handlebars');
+// const underscore = require("underscore");
+
+const fsize = require("filesize");
+const mimer = require("mimer");
+const ePort = require("empty-port");
+const express = require("express");
+const ehbars = require( "express-handlebars" );
 
 var isWin = /^win/.test(process.platform);
 
@@ -27,29 +39,16 @@ var deviceID=null;
 var logger = null;
 
 $(function() {
-    try {
-        netAdd=os.networkInterfaces();
-        netKeys=Object.keys(netAdd);
-        macAddress=netAdd[netKeys[netKeys.length-1]][0]['mac'];
-        macAddress=macAddress.toUpperCase();
-    } catch(e) {
-        console.log("MAC Address Not Found");
-    }
-    deviceID=hashMD5(macAddress);
-
     //Disable all Std <a> Links
     $("body").delegate("a[href]:not([data-toggle])","click",function() {
         href=$(this).attr('href');
         if(href=="#" || href=="##" || href.substr(0,2)=="##") return true;
         return false;
     });
-
-    //Start normal process
+    
     $.ajax("./app/app.json").done(function(data) {
         data=$.parseJSON(data);
         APPCONFIG=data;
-
-        // APPCONFIG.DEBUG=appUtils.isDev();
 
         if(APPCONFIG.APPENV.toUpperCase()=="DEV" || APPCONFIG.APPENV.toUpperCase()=="DEVELOPMENT") {
             APPCONFIG=$.extend(APPCONFIG,APPCONFIG.SETTINGS.DEV);
@@ -66,6 +65,8 @@ $(function() {
         // appDebugger();
 
         $("body").load("./app/app.html");
+
+        currentWindow.show();
     });
 });
 
@@ -75,6 +76,9 @@ function showLoader(divContainer,msgBody="") {
 }
 function showMessage(msgBody, title="") {
     $("#alertMsg .msgbody").html(("<strong>"+title+"</strong> "+msgBody).trim());
-    $("#alertMsg").addClass("in");
+    $("#alertMsg").removeClass("hidden").addClass("in");
+}
+function removeMessage() {
+    $("#alertMsg").removeClass("in").addClass("hidden");
 }
 

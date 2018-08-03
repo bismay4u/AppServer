@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Index of {{url}}</title>
+        <link rel="stylesheet" href="/__dev/styles.css" />
+    </head>
+    <body>
+        <main>
+            {{#if error}}
+                <div class="box error">
+                    <h1>
+                        Error: 404 Not found
+                    </h1>
+                    <p>The resource <strong>{{url}}</strong> could not be found.</p>
+                </div>
+            {{/if}}
+
+            <div class="box">
+                <h1>
+                    Index of
+                    <strong>{{folder}}</strong>
+                </h1>
+                <ul>
+                    {{#if hasParent}}
+                        <li>
+                            <a href="..">
+                                <img src="/__dev/icons/parent.png" alt="" />
+                                <strong>parent</strong>
+                            </a>
+                        </li>
+                    {{/if}}
+                    {{#each files}}
+                        <li>
+                            <a href="{{name}}" class="{{#if isFolder}}folder{{/if}}">
+                                <img src="/__dev/icons/{{mime}}.png" alt="" />
+                                <strong>{{name}}{{#if isFolder}}/{{/if}}</strong>
+                                <time datetime="{{time.raw}}">{{time.human}}</time>
+                                <span>{{#if isFolder}}-{{else}}{{size}}{{/if}}</span>
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <footer>
+                <a href="//github.com/bismay4u/AppServer" rel="external" target="_new">AppServer/{{version}}</a>
+                Serving <span>{{root}}</span> at localhost:{{port}}
+            </footer>
+        </main>
+    </body>
+</html>

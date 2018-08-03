@@ -12,104 +12,59 @@ const {
 
 const path = require('path')
 const url = require('url')
+const hashMD5 = require('md5');
 
 let mainWindow;
-var windowsList={};
+var windowsList=[];
 
-function createWindow() {
-    const _width = 1024, _height = 768;
-    mainWindow = new BrowserWindow({
+global.createWindow = function() {
+    const _width = 955, _height = 600;
+    var tempWindow = new BrowserWindow({
         width: _width,
         height: _height,
-        minWidth: '',
-        minHeight: '',
+        center: true,
+        minWidth: 955,
+        minHeight: 400,
         maxWidth: '',
         maxHeight: '',
         minimizable: true,
         maximizable: true,
         resizable: true,
+        show: false,
+        'standard-window': false,
         icon: './icon.png',
-        'node-integration': false
+        'node-integration': false,
     })
 
-    try{
-        const screenSize = electron.screen.getPrimaryDisplay().size;
-        mainWindow.setPosition( (screenSize.width  - _width )  / 2,
-                        ((screenSize.height - _height ) / 2))
-    } catch(er) {
-        mainWindow.center()
-    }
+    tempWindow.center();
 
-    mainWindow.setMenu(null);
-    // mainWindow.openDevTools();
+    //tempWindow.setMenu(null);
+    //tempWindow.openDevTools();
 
-    mainWindow.loadURL(url.format({
+    tempWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
       }));
-
-    mainWindow.on("closed", () => {12
-      mainWindow = null
-    });
-
-    windowsList['MAIN']=mainWindow;
+    
+    if(windowsList.length<=0) {
+        mainWindow=tempWindow;
+        
+        windowsList.push(mainWindow);
+        
+        mainWindow.on("closed", () => {
+            mainWindow = null
+          });
+    } else {
+        windowsList.push(tempWindow);
+    }
 }
 
 global.getMainWindow = function() {
     return mainWindow;
 }
 
-global.openNewWindow = function(uri,windowTitle,windowID) {
-    if(windowID==null) windowID="webviewer";
-    if(windowTitle==null) windowTitle="New Window";
-
-    const _width = 1100, _height = 700
-    winViewer = new BrowserWindow({
-        title: windowTitle,
-        width: _width,
-        height: _height,
-        minWidth: '',
-        minHeight: '',
-        maxWidth: '',
-        maxHeight: '',
-        minimizable: true,
-        maximizable: false,
-        resizable: false,
-        skipTaskbar: false,
-        // fullscreen: true,
-        // kiosk: true,
-        parent: mainWindow,
-        // frame: false,
-        // titleBarStyle: 'hidden',
-        icon: './icon.png',
-        'node-integration': false
-    })
-    winViewer.setTitle(windowTitle);
-    winViewer.center()
-
-    winViewer.setMenu(null);
-    // winViewer.openDevTools();
-
-    if(uri.indexOf("http://")===0 || uri.indexOf("https://")===0) {
-       winViewer.loadURL(uri); 
-    } else {
-        winViewer.loadURL(url.format({
-                pathname: path.join(__dirname, "app/pages/"+uri+".html"),
-                protocol: 'file:',
-                slashes: true
-              }));
-    }
-
-    winViewer.on("closed", () => {
-      winViewer = null;
-      delete windowsList[windowID];
-    })
-
-    windowsList[windowID]=winViewer;
-}
-
-app.on("ready", createWindow);
+app.on("ready", global.createWindow);
 
 app.on("window-all-closed", () => {
     if (process.platform !== 'darwin') {
@@ -119,6 +74,6 @@ app.on("window-all-closed", () => {
 
 app.on("activate", () => {
     if (mainWindow === null) {
-        createWindow();
+        global.createWindow();
     }
 })
