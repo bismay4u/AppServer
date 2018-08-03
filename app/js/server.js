@@ -1,6 +1,7 @@
 var appServer = null;
 var serverIsConfigured = false;
 var iPort = 0;
+var sRootPath = '';
 var rAutoindexPath = /^\/__dev\//;
 
 function startServer(serverPort, docrootPath) {
@@ -14,7 +15,8 @@ function startServer(serverPort, docrootPath) {
     }
     docrootPath=docrootPath.replace("~",os.homedir());
     iPort = serverPort;
-
+    sRootPath = docrootPath;
+    
     finalURL = "http://localhost:" + serverPort+"/";
     $("#serverURL").attr("href",finalURL).html(finalURL);
     $(".onserveron").show();
