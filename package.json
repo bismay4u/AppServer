@@ -1,6 +1,6 @@
 {
   "name": "AppServer",
-  "version": "1.2.0",
+  "version": "1.5.0",
   "description": "AppServer is a Desktop App Server for HTML, MD files for Developers and Enthusiasts.",
   "homepage": "https://github.com/bismay4u/AppServer",
   "main": "main.js",
