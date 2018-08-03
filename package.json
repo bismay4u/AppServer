@@ -80,7 +80,7 @@
   "build": {
     "appId": "com.silk.appserver",
     "productName": "AppServer",
-    "artifactName": "com.silk.appserver-1.0",
+    "artifactName": "com.silk.appserver",
     "asar": true,
     "compression": "normal",
     "copyright": "Copyright @ 2017 Bismay",
