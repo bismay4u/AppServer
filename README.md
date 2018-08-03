@@ -9,4 +9,4 @@ AppServer is a Desktop App Server for HTML, MD files for Developers and Enthusia
 + Can remember your earlier folders.
 
 
-This project is inspired from https://github.com/teseve/teseve. I thank the authors for this nice application and making it Open Source. I basically forked for making some advancements which include some features and UI along with having my own codebase.
+This project is inspired from https://github.com/teseve/teseve. I thank the authors for this nice application and making it Open Source.
