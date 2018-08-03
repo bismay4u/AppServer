@@ -18,12 +18,12 @@ let mainWindow;
 var windowsList=[];
 
 global.createWindow = function() {
-    var _width = 955, _height = 600;
+    var _width = 1000, _height = 600;
     var tempWindow = new BrowserWindow({
         width: _width,
         height: _height,
         center: true,
-        minWidth: 955,
+        minWidth: 1000,
         minHeight: 400,
         maxWidth: '',
         maxHeight: '',
