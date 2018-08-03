@@ -18,7 +18,7 @@ let mainWindow;
 var windowsList=[];
 
 global.createWindow = function() {
-    const _width = 955, _height = 600;
+    var _width = 955, _height = 600;
     var tempWindow = new BrowserWindow({
         width: _width,
         height: _height,
@@ -38,7 +38,7 @@ global.createWindow = function() {
 
     tempWindow.center();
 
-    //tempWindow.setMenu(null);
+    tempWindow.setMenu(null);
     //tempWindow.openDevTools();
 
     tempWindow.loadURL(url.format({

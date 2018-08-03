@@ -52,10 +52,10 @@
                                 </div>
                                 <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5 checkboxes">
                                     <label title='Monitor Base Folder for Changes' data-toggle="tooltip" data-placement="bottom">
-                                        <input type="checkbox" id='monitor' value='true' /> Monitor
+                                        <input type="checkbox" id='monitor' name='monitor' value='true' /> Monitor
                                     </label>
                                     <label title='Auto Index files if index.html is absent' data-toggle="tooltip" data-placement="bottom">
-                                        <input type="checkbox" id='autoindex' value='true' /> AutoIndex
+                                        <input type="checkbox" id='autoindex' name='autoindex' value='true' /> AutoIndex
                                     </label>
                                 </div>
                             </div>
@@ -76,6 +76,7 @@
                             </span>
                         </div>
                         <a href='#' onclick='clearLog()' class='action pull-right'>clear log</a>
+                        <a href='#' onclick='newWindow()' class='action pull-right'>new window</a>
                     </div>
                 </div>
             </div>

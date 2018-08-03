@@ -94,6 +94,35 @@ function initLoggers() {
     console.info("Application Path " + fsPath.join(getAppPath(), "usermedia"));
 }
 
+function saveSettings() {
+    q1={};
+    $(".serverForm .checkboxes input[type=checkbox]").each(function() {
+        nm=$(this).attr("name");
+        v=$(this).is(":checked");
+        q1[nm]=v;
+    });
+    localStorage.setItem("SETTINGS", JSON.stringify(q1));
+}
+
+function loadSettings() {
+    settings=localStorage.getItem("SETTINGS");
+    if(settings!=null) {
+        try {
+            settings=JSON.parse(settings);
+
+            $.each(settings, function(b,a) {
+                if(a) {
+                    $(".serverForm .checkboxes input[type=checkbox][name='"+b+"']")[0].checked=true;
+                } else {
+                    $(".serverForm .checkboxes input[type=checkbox][name='"+b+"']")[0].checked=false;
+                }
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    }
+}
+
 function getHistory() {
     if(LOCAL_HISTORY==null) {
         LOCAL_HISTORY=localStorage.getItem("DIRHISTORY");

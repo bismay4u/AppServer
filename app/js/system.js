@@ -31,6 +31,11 @@ function initWindow() {
         startServer($("#serverPort").val(), $("#folderPath").val());
     });
 
+    loadSettings();
+    $(".serverForm .checkboxes input[type=checkbox]").change(function() {
+        saveSettings();
+    });
+
     ePort({
         "startPort": 1000,
         "maxPort": 65535
@@ -83,6 +88,10 @@ function selectFolder(src) {
             $("#folderPath").trigger("change");
         }
     });
+}
+
+function newWindow() {
+    remote.getGlobal("createWindow")();
 }
 
 function clearLog() {
