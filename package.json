@@ -51,6 +51,7 @@
     "empty-port": "0.0.2",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-http-proxy": "^1.2.0",
     "filesize": "^3.6.1",
     "font-awesome": "^4.6.3",
     "fs-extra": "^4.0.2",

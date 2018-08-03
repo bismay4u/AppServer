@@ -16,6 +16,14 @@
                 <div class='containerSidebar'>
                     <ul id='dirHistory' class="list-group">
                     </ul>
+                    <div class="serverType">
+                        <label class='pull-left'>Web</label>
+                        <label class="switch">
+                            <input type="checkbox" id="serverIsProxy">
+                            <span class="slider"></span>
+                        </label>
+                        <label class='pull-right'>Proxy</label>
+                    </div>
                 </div>
                 <div class='containerBody'>
                     <div id='mainBody'>
@@ -29,8 +37,11 @@
                                 <div class="col-xs-6 col-lg-6 col-sm-6 col-md-6">
                                     <div class="input-group">
                                         <input id='folderPath' type="text" class="form-control" placeholder="Workspace Folder" readonly>
-                                        <span class="input-group-btn">
+                                        <span class="input-group-btn btn1">
                                             <button class="btn btn-default" type="button" onclick="selectFolder(this)">Folder !</button>
+                                        </span>
+                                        <span class="input-group-btn btn2 hidden">
+                                            <button class="btn btn-success" type="button" onclick="startProxyServer(this)">Start !</button>
                                         </span>
                                     </div>
                                 </div>
@@ -50,7 +61,7 @@
                                 <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5">
                                     <a id='serverURL' href='http://localhost:9000/' class='alink external onserveron' style="line-height: 32px;">http://localhost:9000/</a>
                                 </div>
-                                <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5 checkboxes">
+                                <div class="col-xs-5 col-lg-5 col-sm-5 col-md-5 checkboxes text-right">
                                     <label title='Monitor Base Folder for Changes' data-toggle="tooltip" data-placement="bottom">
                                         <input type="checkbox" id='monitor' name='monitor' value='true' /> Monitor
                                     </label>

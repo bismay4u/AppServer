@@ -6,7 +6,8 @@ const os = require('os');
 const fsUtils = require('fs');
 const fsExtra = require('fs-extra');
 const fsPath = require('path');
-
+const proxy = require('express-http-proxy');
+const urlManager = require('url');
 const winston = require('winston');
 
 const currentWindow = remote.getCurrentWindow();

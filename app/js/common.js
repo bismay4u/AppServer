@@ -125,11 +125,11 @@ function loadSettings() {
 
 function getHistory() {
     if(LOCAL_HISTORY==null) {
-        LOCAL_HISTORY=localStorage.getItem("DIRHISTORY");
+        LOCAL_HISTORY=localStorage.getItem("SERVERHISTORY");
 
         if (LOCAL_HISTORY == null) {
             LOCAL_HISTORY = [];
-            localStorage.setItem("DIRHISTORY", JSON.stringify(LOCAL_HISTORY));
+            localStorage.setItem("SERVERHISTORY", JSON.stringify(LOCAL_HISTORY));
             return LOCAL_HISTORY;
         } else {
             LOCAL_HISTORY = JSON.parse(LOCAL_HISTORY);
@@ -143,10 +143,11 @@ function getHistory() {
 function addHistory(dirObj) {
     LOCAL_HISTORY.push({
         "p":dirObj,
-        "t":moment().format("Y-m-d HH:mm:ss")
+        "t":serverMode,
+        "d":moment().format("Y-m-d HH:mm:ss")
     });
     LOCAL_HISTORY = removeDuplicates(LOCAL_HISTORY,'p');
-    localStorage.setItem("DIRHISTORY", JSON.stringify(LOCAL_HISTORY));
+    localStorage.setItem("SERVERHISTORY", JSON.stringify(LOCAL_HISTORY));
 
     renderHistory();
 }

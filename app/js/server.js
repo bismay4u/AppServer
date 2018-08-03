@@ -2,7 +2,10 @@ var appServer = null;
 var serverIsConfigured = false;
 var iPort = 0;
 var sRootPath = '';
+var webURL = '';
 var rAutoindexPath = /^\/__dev\//;
+var serverMode = null;
+var finalURL = null;
 
 function startServer(serverPort, docrootPath) {
     $(".onserveron").hide();
@@ -16,6 +19,8 @@ function startServer(serverPort, docrootPath) {
     docrootPath=docrootPath.replace("~",os.homedir());
     iPort = serverPort;
     sRootPath = docrootPath;
+
+    window.document.title="AppServer : WebServer Running";
     
     finalURL = "http://localhost:" + serverPort+"/";
     $("#serverURL").attr("href",finalURL).html(finalURL);
@@ -26,9 +31,11 @@ function startServer(serverPort, docrootPath) {
     }
     $("#logHistory h1").html("Visit the above URL for viewing the site");
 
+    serverMode = 'web';
+
     addHistory(docrootPath);
     launchFolderMonitor(docrootPath);
-    
+
     express()
         .engine( "hbar", ehbars( { "extname": "hbar" } ) )
         .set( "view engine", "hbar" )
@@ -71,6 +78,14 @@ function startServer(serverPort, docrootPath) {
 
             document.body.classList.add( "ready" );
         } );
+}
+
+function stopServer() {
+    if(currentWindow.appServer) {
+        currentWindow.appServer.close();
+    }
+    $(".onserveron").hide();
+    clearLog();
 }
 
 function autoIndexer(oRequest, oResponse, fNext) {
@@ -124,6 +139,7 @@ function serverLogging(oRequest, oResponse, fNext) {
         aLogLine.push( "<time>" + ( ( new Date() ).toTimeString().split( " " )[ 0 ] ) + "</time>" );
         aLogLine.push( "<span>" + ( oRequest.method ) + "</span>" );
         aLogLine.push( "<strong>" + ( oRequest.url ) + "</strong>" );
+        aLogLine.push( "<i class='fa fa-eye pull-right openAsset actionCursor'></i>" );
         aLogLine.push( "</li>" );
     $("#logHistory").prepend(aLogLine.join( "" ));
     matchSearchCriteria($("#logHistory li:first-child"));

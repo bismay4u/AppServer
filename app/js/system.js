@@ -12,6 +12,21 @@ function initWindow() {
             break;
     }
 
+    $("#serverIsProxy").change(function() {
+        toggleFieldForServerType();
+    });
+
+    $("#logHistory").delegate(".openAsset", "click", function() {
+        path=$(this).closest("li").find("strong").text();
+        URI=finalURL.substr(0,finalURL.length-1)+path;
+
+        remote.getGlobal("openPreviewer")(URI,"Preview Asset !");
+        //shell.openExternal(URI);
+        // if($("#serverIsProxy").is(":checked")) {
+        // } else {
+        // }
+    });
+
     $("body").delegate("a.external[href]", "click", function (e) {
         href = $(this).attr("href");
         if (href != null && href.length > 3) {
@@ -23,12 +38,26 @@ function initWindow() {
     $("#dirHistory").delegate(".list-group-item","click", function(e) {
         e.preventDefault();
         dir=$(this).data("dir");
-        $("#folderPath").val(dir);
-        startServer($("#serverPort").val(), $("#folderPath").val());
+        type=$(this).data("type");
+        if(type=="proxy") {
+            $("#serverIsProxy")[0].checked=true;
+            $("#serverIsProxy").trigger("change");
+            $("#folderPath").val(dir);
+            startProxyServer();
+        } else {
+            $("#serverIsProxy")[0].checked=false;
+            $("#serverIsProxy").trigger("change");
+            $("#folderPath").val(dir);
+            startServer($("#serverPort").val(), $("#folderPath").val());
+        }
     });
 
     $("#folderPath").change(function () {
-        startServer($("#serverPort").val(), $("#folderPath").val());
+        if($("#serverIsProxy").is(":checked")) {
+            startProxyServer();
+        } else {
+            startServer($("#serverPort").val(), $("#folderPath").val());
+        }
     });
 
     loadSettings();
@@ -68,6 +97,11 @@ function fileDropped(e) {
     e.preventDefault();
     e.stopPropagation();
     document.body.classList.remove("filedrag");
+
+    if($("#serverIsProxy").is(":checked")) {
+        return false;
+    }
+
     if (fsUtils.statSync(oFile.path).isDirectory()) {
         dirPath = (sRootPath = oFile.path).replace(os.homedir(), "~");
         $("#folderPath").val(dirPath);
@@ -127,6 +161,29 @@ function renderHistory() {
         c=b.p.split("/");
         c=c[c.length-1].split("\\");
         c=c[c.length-1];
-        $("#dirHistory").prepend('<a href="#" class="list-group-item" data-dir="'+b.p+'" title="'+b.p+'">'+c+'</a>');
+        if(b.t==null) b.t="web";
+        if(c==null || c.length<=0) return;
+        
+        $("#dirHistory").prepend('<a href="#" class="list-group-item" data-dir="'+b.p+'" data-type="'+b.t+'" title="'+b.p+'">'+c+' <span class="badge pull-right">'+b.t+'</span></a>');
     });
+}
+
+function toggleFieldForServerType() {
+    stopServer();
+    $("#folderPath").val("");
+    
+    if($("#serverIsProxy").is(":checked")) {
+        $("#folderPath").attr("placeholder","http://someurl/").removeAttr("readonly");
+        $("#folderPath").parent().find(".btn1").addClass("hidden");
+        $("#folderPath").parent().find(".btn2").removeClass("hidden");
+        //$("#folderPath").parent().removeClass("input-group");
+        $("label[for=folderPath]").html("Web URL :");
+        $("#folderPath").focus();
+    } else {
+        $("#folderPath").attr("placeholder","Workspace Folder").attr("readonly","true");
+        $("#folderPath").parent().find(".btn2").addClass("hidden");
+        $("#folderPath").parent().find(".btn1").removeClass("hidden");
+        //$("#folderPath").parent().addClass("input-group");
+        $("label[for=folderPath]").html("Base Folder :");
+    }
 }

@@ -60,6 +60,37 @@ global.createWindow = function() {
     }
 }
 
+global.openPreviewer = function(uri,windowTitle) {
+    const _width = 1100, _height = 700
+    winViewer = new BrowserWindow({
+        title: windowTitle,
+        width: _width,
+        height: _height,
+        minWidth: '',
+        minHeight: '',
+        maxWidth: '',
+        maxHeight: '',
+        minimizable: true,
+        maximizable: false,
+        resizable: false,
+        skipTaskbar: false,
+        // fullscreen: true,
+        // kiosk: true,
+        parent: mainWindow,
+        // frame: false,
+        // titleBarStyle: 'hidden',
+        icon: './app/images/logos/logo.png',
+        'node-integration': false
+    })
+    winViewer.setTitle(windowTitle);
+    winViewer.center()
+
+    winViewer.setMenu(null);
+    // winViewer.openDevTools();
+
+    winViewer.loadURL(uri); 
+}
+
 global.getMainWindow = function() {
     return mainWindow;
 }
