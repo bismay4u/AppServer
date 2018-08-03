@@ -5,8 +5,10 @@ AppServer is a Desktop App Server for HTML, MD files for Developers and Enthusia
 ### Features:
 + Converts any desktop folder into website right from your desktop.
 + If index.html is missing, also automatically visualizes an index of files available.
++ Works as Proxy Server for viewing assets used by site.
 + Monitors the folder for changes and updates the page if found changed.
 + Can remember your earlier folders.
+
 
 ![Screenshot](https://github.com/bismay4u/AppServer/blob/master/build/screenshot.png)
 
