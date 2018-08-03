@@ -8,10 +8,10 @@
     "start": "electron . --enable-logging",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "electron-builder --dir",
-    "dist:linux": "build --x64 --ia32 --linux deb",
+    "dist:linux": "build --x64 --linux deb",
     "dist:win64": "build --x64  --win",
     "dist:win32": "build --ia32  --win",
-    "dist:mac": "build --x64 --ia32 --mac",
+    "dist:mac": "build --x64 --mac",
     "dist:all": "build -mwl --x64 --ia32",
     "dist": "npm run dist:mac && npm run dist:linux && npm run dist:win"
   },

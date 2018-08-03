@@ -1,0 +1,21 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.silk.appserver
+productName: AppServer
+artifactName: com.silk.appserver-1.0
+asar: true
+compression: normal
+copyright: Copyright @ 2017 Bismay
+mac:
+  category: public.app-category.development
+  icon: build/icon.icns
+win:
+  icon: build/icon.ico
+  target: nsis
+linux:
+  category: Graphics
+  icon: build/icons
+nsis:
+  oneClick: false
+electronVersion: 2.0.6
