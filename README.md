@@ -26,7 +26,7 @@ AppServer is a Multi Talented Server System with versatile Use Cases. It works a
 - [ ] Log Filtering
 - [ ] Advanced Live Reload
 - [ ] Custom Response Headers
-- [ ] Multiple server root directories
+- [ ] Multiple server root directories with different ports
 - [ ] Realtime connection monitoring & statistics
 
 
