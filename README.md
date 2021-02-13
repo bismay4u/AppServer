@@ -2,7 +2,7 @@
 
 AppServer is a Multi Talented Server System with versatile Use Cases. It works as:
 + Desktop App Server for serving HTML, CSS, JS etc files from a folder for viewing in browser along with functional ajax system.
-+ Partial Proxy Server for transfering request at a local port to a remote server. This facialtes in studing request pattern and resources being used.
++ Partial Proxy Server for transfering request at a local port to a remote server. This facilitates in studying request pattern and resources being used.
 
 
 ### Features:
